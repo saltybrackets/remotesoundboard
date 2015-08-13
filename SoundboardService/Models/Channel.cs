@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using Soundboard.Service.Models.Sounds;
 
 
 namespace Soundboard.Service.Models
@@ -10,6 +13,8 @@ namespace Soundboard.Service.Models
 		private string name;
 		private int queuedSoundFileId;
 		private long lockExpiration;
+		private IList<SoundCategory> soundCategories;
+		private IList<SoundRecord> soundRecords;
 		#endregion
 
 
@@ -40,6 +45,20 @@ namespace Soundboard.Service.Models
 		{
 			get { return this.queuedSoundFileId; }
 			set { this.queuedSoundFileId = value; }
+		}
+
+
+		public IList<SoundCategory> SoundCategories
+		{
+			get { return this.soundCategories; }
+			set { this.soundCategories = value; }
+		}
+
+
+		public IList<SoundRecord> SoundRecords
+		{
+			get { return this.soundRecords; }
+			set { this.soundRecords = value; }
 		}
 		#endregion
 	}

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace Soundboard.Service.Models.Sounds
@@ -9,11 +11,20 @@ namespace Soundboard.Service.Models.Sounds
 		private int id;
 		private string name;
 		private int channelId;
+		private Channel channel;
+		private IList<SoundRecord> soundRecords;
 		#endregion
 
 
 		#region Properties
-		[Required]
+		public Channel Channel
+		{
+			get { return this.channel; }
+			set { this.channel = value; }
+		}
+
+
+		// Foreign key for Channel
 		public int ChannelId
 		{
 			get { return this.channelId; }
@@ -33,6 +44,14 @@ namespace Soundboard.Service.Models.Sounds
 		{
 			get { return this.name; }
 			set { this.name = value; }
+		}
+
+
+		// Collection navigation property.
+		public IList<SoundRecord> SoundRecords
+		{
+			get { return this.soundRecords; }
+			set { this.soundRecords = value; }
 		}
 		#endregion
 	}

@@ -9,20 +9,18 @@ using Soundboard.Service.Models.Sounds;
 
 namespace Soundboard.Service.Migrations
 {
-	internal sealed class Configuration : DbMigrationsConfiguration<Models.SoundboardServiceContext>
+	internal sealed class SoundboardDbConfiguration :CreateDatabaseIfNotExists<SoundboardServiceContext>
 	{
-		#region Constructors
-		public Configuration()
-		{
-			this.AutomaticMigrationsEnabled = false;
-		}
-		#endregion
 
-
-		protected override void Seed(Models.SoundboardServiceContext context)
+		protected override void Seed(SoundboardServiceContext context)
 		{
 			context.Channels.AddOrUpdate(channel => channel.Id,
-				new Channel() { Id = 0, Name = "default" }
+				new Channel() { Id = 0, Name = "None" },
+				new Channel() { Id = 1, Name = "Global" }
+				);
+
+			context.SoundCategories.AddOrUpdate(soundCategory => soundCategory.Id, 
+				new SoundCategory() { Id = 0, Name = "None" }
 				);
 
 			context.SoundFiles.AddOrUpdate(soundFile => soundFile.Id,

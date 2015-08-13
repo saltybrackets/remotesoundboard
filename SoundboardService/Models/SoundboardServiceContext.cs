@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using Soundboard.Service.Migrations;
 
 
 namespace Soundboard.Service.Models
@@ -11,7 +12,10 @@ namespace Soundboard.Service.Models
 	{
 		#region Constructors
 		public SoundboardServiceContext()
-			: base("name=SoundboardServiceContext") {}
+			: base("SoundboardConnectionString")
+		{
+			Database.SetInitializer(new SoundboardDbConfiguration());
+		}
 		#endregion
 
 

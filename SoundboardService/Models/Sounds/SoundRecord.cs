@@ -10,11 +10,22 @@ namespace Soundboard.Service.Models.Sounds
 		private int channelId;
 		private int soundFileId;
 		private string name;
-		private int categoryId;
+		private int soundCategoryId;
+		private Channel channel;
+		private SoundCategory soundCategory;
+		private SoundFile soundFile;
 		#endregion
 
 
 		#region Properties
+		public Channel Channel
+		{
+			get { return this.channel; }
+			set { this.channel = value; }
+		}
+
+
+		// Foreign key for Channel
 		public int ChannelId
 		{
 			get { return this.channelId; }
@@ -37,6 +48,29 @@ namespace Soundboard.Service.Models.Sounds
 		}
 
 
+		// Foreign key for SoundCategory
+		public SoundCategory SoundCategory
+		{
+			get { return this.soundCategory; }
+			set { this.soundCategory = value; }
+		}
+
+
+		public int SoundCategoryId
+		{
+			get { return this.soundCategoryId; }
+			set { this.soundCategoryId = value; }
+		}
+
+
+		public SoundFile SoundFile
+		{
+			get { return this.soundFile; }
+			set { this.soundFile = value; }
+		}
+
+
+		// Foreign key for SoundFile
 		public int SoundFileId
 		{
 			get { return this.soundFileId; }
