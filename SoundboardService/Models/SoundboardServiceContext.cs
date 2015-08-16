@@ -8,13 +8,35 @@ using Soundboard.Service.Migrations;
 
 namespace Soundboard.Service.Models
 {
+	[DbConfigurationType(typeof (MySql.Data.Entity.MySqlEFConfiguration))]
 	public class SoundboardServiceContext : DbContext
 	{
 		#region Constructors
-		public SoundboardServiceContext()
-			: base("SoundboardConnectionString")
+		public SoundboardServiceContext(DBCreationMethod creationMethod = DBCreationMethod.CreateIfNotExists)
+			: base("name=SoundboardConnectionString")
 		{
-			Database.SetInitializer(new SoundboardDbConfiguration());
+			switch (creationMethod)
+			{
+				case DBCreationMethod.CreateIfNotExists:
+					Database.SetInitializer(new CreateSoundboardDbIfNotExists());
+					break;
+				case DBCreationMethod.DropCreateIfModelChanges:
+					Database.SetInitializer(new DropCreateSoundboardDbIfModelChanges());
+					break;
+				case DBCreationMethod.DropCreateAlways:
+					Database.SetInitializer(new DropCreateSoundboardDbAlways());
+					break;
+			}
+		}
+		#endregion
+
+
+		#region Enums
+		public enum DBCreationMethod
+		{
+			CreateIfNotExists,
+			DropCreateIfModelChanges,
+			DropCreateAlways
 		}
 		#endregion
 

@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace Soundboard.Service.Models.Sounds
 {
+	[Table("SoundCategory")]
 	public class SoundCategory
 	{
 		#region Fields
@@ -17,6 +19,10 @@ namespace Soundboard.Service.Models.Sounds
 
 
 		#region Properties
+		/// <summary>
+		/// Channel this category exists on.
+		/// </summary>
+		[ForeignKey("ChannelId")]
 		public Channel Channel
 		{
 			get { return this.channel; }
@@ -24,7 +30,9 @@ namespace Soundboard.Service.Models.Sounds
 		}
 
 
-		// Foreign key for Channel
+		/// <summary>
+		/// Foreign key for Channel.
+		/// </summary>
 		public int ChannelId
 		{
 			get { return this.channelId; }
@@ -32,6 +40,10 @@ namespace Soundboard.Service.Models.Sounds
 		}
 
 
+		/// <summary>
+		/// Primary key.
+		/// </summary>
+		[Key]
 		public int Id
 		{
 			get { return this.id; }
@@ -39,6 +51,9 @@ namespace Soundboard.Service.Models.Sounds
 		}
 
 
+		/// <summary>
+		/// Display name of the sound category.
+		/// </summary>
 		[Required]
 		public string Name
 		{
@@ -47,7 +62,9 @@ namespace Soundboard.Service.Models.Sounds
 		}
 
 
-		// Collection navigation property.
+		/// <summary>
+		/// Collection navigation property.
+		/// </summary>
 		public IList<SoundRecord> SoundRecords
 		{
 			get { return this.soundRecords; }

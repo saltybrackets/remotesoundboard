@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace Soundboard.Service.Models.Sounds
 {
+	[Table("SoundRecord")]
 	public class SoundRecord
 	{
 		#region Fields
@@ -10,7 +12,7 @@ namespace Soundboard.Service.Models.Sounds
 		private int channelId;
 		private int soundFileId;
 		private string name;
-		private int soundCategoryId;
+		private int? soundCategoryId;
 		private Channel channel;
 		private SoundCategory soundCategory;
 		private SoundFile soundFile;
@@ -18,14 +20,20 @@ namespace Soundboard.Service.Models.Sounds
 
 
 		#region Properties
+		/// <summary>
+		/// Soundboard channel this sound exists on.
+		/// </summary>
+		[ForeignKey("ChannelId")]
 		public Channel Channel
 		{
 			get { return this.channel; }
 			set { this.channel = value; }
 		}
 
-
-		// Foreign key for Channel
+		
+		/// <summary>
+		/// Foreign key for Channel.
+		/// </summary>
 		public int ChannelId
 		{
 			get { return this.channelId; }
@@ -33,6 +41,10 @@ namespace Soundboard.Service.Models.Sounds
 		}
 
 
+		/// <summary>
+		/// Primary key.
+		/// </summary>
+		[Key]
 		public int Id
 		{
 			get { return this.id; }
@@ -40,6 +52,9 @@ namespace Soundboard.Service.Models.Sounds
 		}
 
 
+		/// <summary>
+		/// Display name of the sound within the channel.
+		/// </summary>
 		[Required]
 		public string Name
 		{
@@ -48,29 +63,41 @@ namespace Soundboard.Service.Models.Sounds
 		}
 
 
-		// Foreign key for SoundCategory
+		/// <summary>
+		/// Category this sound is displayed under.
+		/// </summary>
+		[ForeignKey("SoundCategoryId")]
 		public SoundCategory SoundCategory
 		{
 			get { return this.soundCategory; }
 			set { this.soundCategory = value; }
 		}
 
-
-		public int SoundCategoryId
+		
+		/// <summary>
+		/// Foreign key for SoundCategory.
+		/// </summary>
+		public int? SoundCategoryId
 		{
 			get { return this.soundCategoryId; }
 			set { this.soundCategoryId = value; }
 		}
 
 
+		/// <summary>
+		/// Sound file this record points to.
+		/// </summary>
+		[ForeignKey("SoundFileId")]
 		public SoundFile SoundFile
 		{
 			get { return this.soundFile; }
 			set { this.soundFile = value; }
 		}
 
-
-		// Foreign key for SoundFile
+		
+		/// <summary>
+		/// Foreign key for SoundFile.
+		/// </summary>
 		public int SoundFileId
 		{
 			get { return this.soundFileId; }

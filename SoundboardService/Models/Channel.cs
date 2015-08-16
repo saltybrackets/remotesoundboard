@@ -1,24 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Soundboard.Service.Models.Sounds;
 
 
 namespace Soundboard.Service.Models
 {
-	public class Channel
+	[Table("Channel")] public class Channel
 	{
 		#region Fields
 		private int id;
 		private string name;
-		private int queuedSoundFileId;
 		private long lockExpiration;
+		private int? queuedSoundFileId;
+		private SoundFile queuedSoundFile;
 		private IList<SoundCategory> soundCategories;
 		private IList<SoundRecord> soundRecords;
 		#endregion
 
 
 		#region Properties
+		/// <summary>
+		/// Primary key.
+		/// </summary>
+		[Key]
 		public int Id
 		{
 			get { return this.id; }
@@ -26,6 +32,9 @@ namespace Soundboard.Service.Models
 		}
 
 
+		/// <summary>
+		/// When local timestamp exceeds this timestamp, channel becoems unlocked.
+		/// </summary>
 		public long LockExpiration
 		{
 			get { return this.lockExpiration; }
@@ -33,6 +42,11 @@ namespace Soundboard.Service.Models
 		}
 
 
+		/// <summary>
+		/// Name of the channel.
+		/// </summary>
+		[Index(IsUnique = true)]
+		[StringLength(128)]
 		[Required]
 		public string Name
 		{
@@ -41,13 +55,30 @@ namespace Soundboard.Service.Models
 		}
 
 
-		public int QueuedSoundFileId
+		/// <summary>
+		/// Next file to play on this channel's soundboard.
+		/// </summary>
+		[ForeignKey("QueuedSoundFileId")]
+		public SoundFile QueuedSoundFile
+		{
+			get { return this.queuedSoundFile; }
+			set { this.queuedSoundFile = value; }
+		}
+
+
+		/// <summary>
+		/// Foreign key for QueuedSoundFile.
+		/// </summary>
+		public int? QueuedSoundFileId
 		{
 			get { return this.queuedSoundFileId; }
 			set { this.queuedSoundFileId = value; }
 		}
 
 
+		/// <summary>
+		/// Navigational property.
+		/// </summary>
 		public IList<SoundCategory> SoundCategories
 		{
 			get { return this.soundCategories; }
@@ -55,6 +86,9 @@ namespace Soundboard.Service.Models
 		}
 
 
+		/// <summary>
+		/// Navigational property.
+		/// </summary>
 		public IList<SoundRecord> SoundRecords
 		{
 			get { return this.soundRecords; }
