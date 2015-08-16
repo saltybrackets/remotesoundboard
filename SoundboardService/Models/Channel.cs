@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Soundboard.Service.Models.Sounds;
@@ -7,7 +6,8 @@ using Soundboard.Service.Models.Sounds;
 
 namespace Soundboard.Service.Models
 {
-	[Table("Channel")] public class Channel
+	[Table("Channel")]
+	public class Channel
 	{
 		#region Fields
 		private int id;
@@ -17,6 +17,11 @@ namespace Soundboard.Service.Models
 		private SoundFile queuedSoundFile;
 		private IList<SoundCategory> soundCategories;
 		private IList<SoundRecord> soundRecords;
+		#endregion
+
+
+		#region Constructors
+		
 		#endregion
 
 

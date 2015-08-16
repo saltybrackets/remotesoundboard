@@ -12,6 +12,11 @@ namespace Soundboard.Service.Models
 	public class SoundboardServiceContext : DbContext
 	{
 		#region Constructors
+		public SoundboardServiceContext()
+			: this(DBCreationMethod.CreateIfNotExists)
+		{ }
+
+
 		public SoundboardServiceContext(DBCreationMethod creationMethod = DBCreationMethod.CreateIfNotExists)
 			: base("name=SoundboardConnectionString")
 		{
