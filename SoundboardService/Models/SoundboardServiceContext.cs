@@ -13,11 +13,11 @@ namespace Soundboard.Service.Models
 	{
 		#region Constructors
 		public SoundboardServiceContext()
-			: this(DBCreationMethod.CreateIfNotExists)
-		{ }
+			: this(DBCreationMethod.CreateIfNotExists) {}
 
 
-		public SoundboardServiceContext(DBCreationMethod creationMethod = DBCreationMethod.CreateIfNotExists)
+		public SoundboardServiceContext(DBCreationMethod creationMethod =
+			DBCreationMethod.CreateIfNotExists)
 			: base("name=SoundboardConnectionString")
 		{
 			switch (creationMethod)
